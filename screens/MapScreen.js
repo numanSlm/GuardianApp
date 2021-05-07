@@ -1,34 +1,33 @@
-import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
-import MapboxGL from "@react-native-mapbox-gl/maps";
+import React from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import { FAB } from 'react-native-paper';
 
-MapboxGL.setAccessToken("pk.eyJ1IjoibWVldC0zMDExIiwiYSI6ImNrbnp3MGc4czA5d28zM3A5ZW5iaTVmaHoifQ.geJr1G_jvyJVqsAUH4UOZQ");
-
-const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
-  },
-  container: {
-    height: 300,
-    width: 300,
-    backgroundColor: "tomato"
-  },
-  map: {
-    flex: 1
-  }
-});
-
-export default class MapScreen extends Component {
-  render() {
-    return (
-      <View style={styles.page}>
+const MapScreen = (navigation)=>{
+    return(
         <View style={styles.container}>
-          <MapboxGL.MapView style={styles.map} />
+            <Text>MapScreen</Text>
+            <FAB
+                style={styles.fab}
+                small
+                icon="plus"
+                onPress={() => navigation.navigate('Map')}
+            />
         </View>
-      </View>
     );
-  }
-}
+};
+
+export default MapScreen;
+
+const styles= StyleSheet.create({
+    container:{
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    fab: {
+        position: 'absolute',
+        margin: 16,
+        right: 0,
+        bottom: 0,
+      },
+});
