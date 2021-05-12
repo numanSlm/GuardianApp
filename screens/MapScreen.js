@@ -1,50 +1,57 @@
-import React, { useState, useEffect } from 'react';
-import { Platform, View, StyleSheet, Dimensions} from 'react-native';
-import Constants from 'expo-constants';
-import MapView from 'react-native-maps';
-import * as Location from 'expo-location';
-import { FAB } from 'react-native-paper';
+import React, { useState, useEffect } from "react";
+import { Platform, View, StyleSheet, Dimensions } from "react-native";
+import Constants from "expo-constants";
+import MapView, { Marker } from "react-native-maps";
+import * as Location from "expo-location";
+import { FAB } from "react-native-paper";
 
-export default function MapScreen({navigation}) {
+export default function MapScreen({ navigation }) {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
-
   useEffect(() => {
-    (async () => {
-      if (Platform.OS === 'android' && !Constants.isDevice) {
-        setErrorMsg(
-          'Oops, this will not work on Snack in an Android emulator. Try it on your device!'
-        );
+    const setCurrentLocation = async () => {
+      let { status } = await Location.requestPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
         return;
       }
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-        return;
-      }
-
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
-    })();
+    };
+
+    setCurrentLocation();
   }, []);
 
-  let text = {};
-  if (errorMsg) {
-    text = {error:errorMsg};
-  } else if (location) { 
-    text = {latitude:location.coords.latitude,longitude:location.coords.longitude};
-  }
-  console.log(text.latitude,text.longitude)
   return (
     <View style={styles.container}>
-      <MapView style={styles.map} />
+      {location ? (
+        <MapView
+          style={styles.map}
+          initialRegion={{
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        >
+          <Marker
+            coordinate={{
+              latitude: location.coords.latitude,
+              longitude: location.coords.longitude,
+            }}
+            title="test"
+            description="desc"
+          />
+        </MapView>
+      ) : null}
+
       <FAB
-                style={styles.fab}
-                small
-                icon="plus"
-                onPress={() => navigation.navigate('Details')}
-            />
+        style={styles.fab}
+        small
+        icon="plus"
+        onPress={() => navigation.navigate("Details")}
+      />
     </View>
   );
 }
@@ -52,16 +59,16 @@ export default function MapScreen({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     padding: 20,
   },
   map: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
   },
   fab: {
-    position: 'absolute',
+    position: "absolute",
     margin: 16,
     right: 0,
     bottom: 0,
