@@ -1,38 +1,69 @@
-import React from 'react';
-import {View, Text, StyleSheet,Dimensions} from 'react-native';
-import { FAB } from 'react-native-paper';
+import React, { useState, useEffect } from 'react';
+import { Platform, View, StyleSheet, Dimensions} from 'react-native';
+import Constants from 'expo-constants';
 import MapView from 'react-native-maps';
+import * as Location from 'expo-location';
+import { FAB } from 'react-native-paper';
 
-const MapScreen = (navigation)=>{
-    return(
-        <View style={styles.container}>
-            <MapView style={styles.map} />
-            <FAB
+export default function MapScreen({navigation}) {
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS === 'android' && !Constants.isDevice) {
+        setErrorMsg(
+          'Oops, this will not work on Snack in an Android emulator. Try it on your device!'
+        );
+        return;
+      }
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+
+  let text = {};
+  if (errorMsg) {
+    text = {error:errorMsg};
+  } else if (location) { 
+    text = {latitude:location.coords.latitude,longitude:location.coords.longitude};
+  }
+  console.log(text.latitude,text.longitude)
+  return (
+    <View style={styles.container}>
+      <MapView style={styles.map} />
+      <FAB
                 style={styles.fab}
                 small
                 icon="plus"
-                onPress={() => navigation.navigate('Map')}
+                onPress={() => navigation.navigate('Details')}
             />
-        </View>
-    );
-};
+    </View>
+  );
+}
 
-export default MapScreen;
-
-const styles= StyleSheet.create({
-    container:{
-        flex:1,
-        alignItems:'center',
-        justifyContent:'center'
-    },
-    fab: {
-        position: 'absolute',
-        margin: 16,
-        right: 0,
-        bottom: 0,
-      },
-      map: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
-      },
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  map: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+  },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+  },
 });
