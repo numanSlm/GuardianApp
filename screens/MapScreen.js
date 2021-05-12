@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Platform, View, StyleSheet, Dimensions } from "react-native";
 import Constants from "expo-constants";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker,Circle } from "react-native-maps";
 import * as Location from "expo-location";
 import { FAB } from "react-native-paper";
 
@@ -40,8 +40,18 @@ export default function MapScreen({ navigation }) {
               latitude: location.coords.latitude,
               longitude: location.coords.longitude,
             }}
+            image={require("../assets/person.png") }
             title="test"
             description="desc"
+          />
+          <Circle
+            center={{
+                latitude: location.coords.latitude,
+              longitude: location.coords.longitude,
+            }}
+            radius={1000}
+            strokeColor={'rgb(204, 16, 52)'} 
+            fillColor={'rgba(204, 16, 52, 0.5)'}
           />
         </MapView>
       ) : null}
