@@ -44,8 +44,18 @@ export default function MapScreen({ navigation }) {
               latitude: userData.location.coords.latitude,
               longitude: userData.location.coords.longitude,
             }}
+            image={require("../assets/person.png")}
             title="test"
             description="desc"
+          />
+          <Circle
+            center={{
+              latitude: location.coords.latitude,
+              longitude: location.coords.longitude,
+            }}
+            radius={1000}
+            strokeColor={"rgb(204, 16, 52)"}
+            fillColor={"rgba(204, 16, 52, 0.5)"}
           />
         </MapView>
       ) : null}
