@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Platform, View, StyleSheet, Dimensions } from "react-native";
-import Constants from "expo-constants";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import { FAB } from "react-native-paper";
+import { DataContext } from "../store/GlobalState";
 
 export default function MapScreen({ navigation }) {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+
+  const { state, dispatch } = useContext(DataContext);
+  const { userData } = state;
 
   useEffect(() => {
     const setCurrentLocation = async () => {
@@ -18,6 +21,7 @@ export default function MapScreen({ navigation }) {
       }
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
+      dispatch({ type: "USER_DATA", payload: { location } });
     };
 
     setCurrentLocation();
@@ -25,20 +29,20 @@ export default function MapScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {location ? (
+      {userData.location ? (
         <MapView
           style={styles.map}
           initialRegion={{
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude,
+            latitude: userData.location.coords.latitude,
+            longitude: userData.location.coords.longitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
         >
           <Marker
             coordinate={{
-              latitude: location.coords.latitude,
-              longitude: location.coords.longitude,
+              latitude: userData.location.coords.latitude,
+              longitude: userData.location.coords.longitude,
             }}
             title="test"
             description="desc"
