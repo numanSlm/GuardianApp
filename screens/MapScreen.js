@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Platform, View, StyleSheet, Dimensions } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import { View, StyleSheet, Dimensions } from "react-native";
+import MapView, { Marker, Circle } from "react-native-maps";
 import * as Location from "expo-location";
 import { FAB } from "react-native-paper";
 import { DataContext } from "../store/GlobalState";
@@ -44,7 +44,7 @@ export default function MapScreen({ navigation }) {
               latitude: userData.location.coords.latitude,
               longitude: userData.location.coords.longitude,
             }}
-            image={require("../assets/person.png")}
+            // image={require("../assets/my-location.gif")}
             title="test"
             description="desc"
           />
