@@ -1,6 +1,6 @@
 
 import React, { useEffect } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, StyleSheet,ScrollView } from "react-native";
 import { FAB,Card,Title } from "react-native-paper";
 import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
