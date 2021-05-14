@@ -105,12 +105,32 @@ const SignInScreen = ({ navigation }) => {
       </View>
 
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <ScrollView>
-          <Text style={styles.text_footer}>Full Name</Text>
-          <View style={styles.action}>
-            <MaterialIcons name="person" size={20} color="#05375a" />
-            <TextInput placeholder="Your Full Name" style={styles.textInput} />
-          </View>
+           <ScrollView
+                showsVerticalScrollIndicator={false}
+            >
+            <Text style={styles.text_footer}>First Name</Text>
+            <View style={styles.action}>
+            <MaterialIcons 
+                name="person" 
+                size={20} 
+                color="#05375a" />
+            <TextInput 
+                placeholder='Your First Name' 
+                style={styles.textInput}
+            />
+            </View>
+            
+            <Text style={[styles.text_footer,{marginTop:35}]}>Last Name</Text>
+            <View style={styles.action}>
+            <MaterialIcons 
+                name="person" 
+                size={20} 
+                color="#05375a" />
+            <TextInput 
+                placeholder='Your Last Name' 
+                style={styles.textInput}
+            />
+            </View>
 
           <Text style={[styles.text_footer, { marginTop: 35 }]}>
             Aadhaar Card No.
@@ -141,17 +161,6 @@ const SignInScreen = ({ navigation }) => {
           </View>
 
           <Text style={[styles.text_footer, { marginTop: 35 }]}>
-            One Time Password - OTP
-          </Text>
-          <View style={styles.action}>
-            <Feather name="user-check" size={20} color="#05375a" />
-            <TextInput
-              placeholder="Your One Time Password"
-              style={styles.textInput}
-            />
-          </View>
-
-          <Text style={[styles.text_footer, { marginTop: 35 }]}>
             Emergency Contact No.
           </Text>
           <View style={styles.action}>
@@ -161,6 +170,90 @@ const SignInScreen = ({ navigation }) => {
               style={styles.textInput}
             />
           </View>
+
+           <Text style={[styles.text_footer,{marginTop:35}]}>Relative Name</Text>
+            <View style={styles.action}>
+            <MaterialIcons 
+                name="person" 
+                size={20} 
+                color="#05375a" />
+            <TextInput 
+                placeholder='Your Relative Name' 
+                style={styles.textInput}
+            />
+            </View>
+
+            <Text style={[styles.text_footer, {marginTop:35}]}>Relative Contact No.</Text>
+            <View style={styles.action}>
+            <MaterialIcons 
+                name="person-add" 
+                size={20} 
+                color="#05375a" />
+            <TextInput 
+                placeholder='Relative Contact No.' 
+                style={styles.textInput}
+            />
+            </View>
+
+            <Text style={[styles.text_footer,{marginTop:35}]}>Address Line 1</Text>
+            <View style={styles.action}>
+            <FontAwesome 
+                name="address-book" 
+                size={20} 
+                color="#05375a" />
+            <TextInput 
+                placeholder='Your Address' 
+                style={styles.textInput}
+            />
+            </View>
+
+            <Text style={[styles.text_footer,{marginTop:35}]}>Address Line 2</Text>
+            <View style={styles.action}>
+            <FontAwesome 
+                name="address-book"  
+                size={20} 
+                color="#05375a" />
+            <TextInput 
+                placeholder='Your Address' 
+                style={styles.textInput}
+            />
+            </View>
+
+            <Text style={[styles.text_footer,{marginTop:35}]}>City</Text>
+            <View style={styles.action}>
+            <MaterialIcons 
+                name="location-city" 
+                size={20} 
+                color="#05375a" />
+            <TextInput 
+                placeholder='Your city' 
+                style={styles.textInput}
+            />
+            </View>
+
+            <Text style={[styles.text_footer,{marginTop:35}]}>State</Text>
+            <View style={styles.action}>
+            <MaterialIcons 
+                name="location-city" 
+                size={20} 
+                color="#05375a" />
+            <TextInput 
+                placeholder='Your State' 
+                style={styles.textInput}
+            />
+            </View>
+
+            <Text style={[styles.text_footer,{marginTop:35}]}>Pincode</Text>
+            <View style={styles.action}>
+            <Feather 
+                name="map-pin" 
+                size={20} 
+                color="#05375a" />
+            <TextInput 
+                placeholder='Your pincode' 
+                style={styles.textInput}
+            />
+            </View>   
 
           <Text style={[styles.text_footer, { marginTop: 35 }]}>E-mail id</Text>
           <View style={styles.action}>
