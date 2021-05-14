@@ -1,7 +1,7 @@
 
 import React, { useEffect } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
-import { FAB } from "react-native-paper";
+import { FAB,Card,Title } from "react-native-paper";
 import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
 
@@ -30,19 +30,44 @@ export default function HomeScreen({ navigation }) {
   }
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>HomeScreen</Text>
-      <Button
-        title="Go to Details Screen"
-        onPress={() => navigation.navigate("Details")}
-      />
-      <FAB
-        style={styles.fab}
-        small
-        icon="plus"
-        onPress={() => navigation.navigate("Map")}
-      />
-    </View>
+     <View style={styles.container}>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={styles.scrollView}
+          >
+            <Card style={styles.cases}>
+              <Card.Title title="Cases Reported" subtitle="Till Date" />
+              <Card.Content>
+                <Title>890</Title>
+              </Card.Content>
+            </Card>
+            <Card style={styles.cases}>
+              <Card.Title title="Cases Investigated" subtitle="Till Date" />
+              <Card.Content>
+                <Title>788</Title>
+              </Card.Content>
+            </Card>
+            <Card style={styles.cases}>
+              <Card.Title title="Cases Pending" subtitle="Till Date" />
+              <Card.Content>
+                <Title>98</Title>
+              </Card.Content>
+            </Card>
+            <Card style={styles.cases}>
+              <Card.Title title="Cases Recorded" subtitle="Till Date" />
+              <Card.Content>
+                <Title>890</Title>
+              </Card.Content>
+            </Card>
+          </ScrollView>
+          <FAB
+                style={styles.fab}
+                small
+                icon="plus"
+                onPress={() => navigation.navigate('Map')}
+            />
+           
+        </View>
   );
 }
 
@@ -58,5 +83,19 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
+  cases:{
+      flexDirection:"row",
+      padding:8,
+      marginTop:30,
+      paddingHorizontal:10,
+      marginHorizontal:10,
+      height:130,
+      width:250,
+      shadowColor: '#ccc',
+      shadowOffset: { width: 0, height: 3 },
+      shadowOpacity: 0.5,
+      shadowRadius: 5,
+      elevation: 10,
+    },
 
 });
