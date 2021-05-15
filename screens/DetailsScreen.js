@@ -124,7 +124,7 @@ const DetailsScreen = ({navigation}) =>{
                 style={styles.fab}
                 small
                 icon="plus"
-                onPress={() => navigation.navigate('Map')}
+                onPress={() => navigation.navigate('ReportScreen')}
               />
             </View>
     );
