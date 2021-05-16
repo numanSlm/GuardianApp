@@ -1,18 +1,16 @@
 import React,{useState,useEffect} from 'react';
-import {View, Text, TextInput,TouchableOpacity, Image, Button, StyleSheet, StatusBar, ScrollView, Platform, Picker} from 'react-native';
-import{Video} from 'expo-av';
+import {View, Text, TextInput,TouchableOpacity, Image, StyleSheet, StatusBar, ScrollView, Platform, Picker, Alert} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import * as firebase from 'firebase';
 
 
 export default function Report(){
     const [selectedValue, setSelectedValue] = useState("Theft");
-    const [image, setImage] = useState(null);
-    const [video, setVideo] = useState(null);
 
         useEffect(() => {
             (async () => {
             if (Platform.OS !== 'web') {
-                const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync(all);
+                const { status } = await ImagePicker.getMediaLibraryPermissionsAsync(all);
                 if (status !== 'granted') {
                 alert('Sorry, we need camera roll permissions to make this work!');
                 }
@@ -22,33 +20,59 @@ export default function Report(){
 
         const pickImage = async () => {
             let result = await ImagePicker.launchImageLibraryAsync({
-              mediaTypes: ImagePicker.MediaTypeOptions.All,
+              mediaTypes: ImagePicker.MediaTypeOptions.Images,
               allowsEditing: true,
               aspect: [4, 3],
               quality: 1,
             });
-
-        if (!result.cancelled) {
-                setImage(result.uri);
-              }
-            };
-
-        const pickVideo = async () => {
-            let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Videos,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-            });
-
-            console.log(result);
-
+            
             if (!result.cancelled) {
-            setVideo(result.uri);
-            }
-        };
+                    this.uploadImage(result.uri)
+                    .then(()=>{
+                        Alert.alert('Success');
+                    })
+                    .catch((error) =>{
+                        Alert.alert(error);
+                    });
+                }
+                console.log(result.uri)
+            };
+        
+        uploadImage = async(uri) => {
+                const response = await fetch(uri);
+                const blob = await response.blob();
+                var ref = firebase.storage().ref().child("my-image");
+                return ref.put(blob);
+        }
 
+       
 
+        const captImage = async () => {
+            let result = await ImagePicker.launchCameraAsync({
+              mediaTypes: ImagePicker.MediaTypeOptions.Images,
+              allowsEditing: true,
+              aspect: [4, 3],
+              quality: 1,
+            });
+            
+            if (!result.cancelled) {
+                    this.uploadImage(result.uri)
+                    .then(()=>{
+                        Alert.alert('Success');
+                    })
+                    .catch((error) =>{
+                        Alert.alert(error);
+                    });
+                }
+                console.log(result.uri)
+            };
+        
+        uploadImage = async(uri) => {
+                const response = await fetch(uri);
+                const blob = await response.blob();
+                var ref = firebase.storage().ref().child("my-image");
+                return ref.put(blob);
+        }
 
     return(
         <View style={styles.container}>
@@ -68,33 +92,26 @@ export default function Report(){
                             style={{ height: 50, width: 320 }}
                             onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
                         >
-                            <Picker.Item label="Theft" value="Theft" />
+                            <Picker.Item label="Motor Vehicle Theft" value="Motor Vehicle Theft" />
                             <Picker.Item label="Bulgary" value="Bulgary" />
                             <Picker.Item label="Murder" value="Murder" />
+                            <Picker.Item label="Assault" value="Assault" />
+                            <Picker.Item label="Disturbing the Peace" value="Disturbing the Peace" />
+                            <Picker.Item label="Drugs / Alcohol Violations" value="Drugs / Alcohol Violations" />
+                            <Picker.Item label="Homicide" value="Homicide" />
+                            <Picker.Item label="Robbery" value="Robbery" />
+                            <Picker.Item label="Sex Crimes" value="Sex Crimes" />
+                            <Picker.Item label="Vandalism" value="Vandalism" />
+                            <Picker.Item label="Weapons" value="Weapons" />
+                            <Picker.Item label="DUI" value="DUI" />
+                            <Picker.Item label="Fraud" value="Fraud" />
+
                         </Picker>
                     </View>
-
+                    <Text style={[styles.text_footer,{marginTop:35}]}>Upload Image</Text>
+                <View style={styles.imgbut}>
                     <TouchableOpacity
-                
-                style={[styles.signIn, {
-                    backgroundColor: '#009387',
-                    borderColor: '#009387',
-                    borderWidth: 1,
-                    marginTop: 15
-                }]}
-            >
-                <Text style={[styles.textSign, {
-                    color : '#fff' 
-                }]}onPress={pickImage}
-                >Pick an Image from camera roll</Text>
-            </TouchableOpacity>
-                    <View style={styles.action}>
-                        {image && <Image source={{ uri:image}} 
-                            style={ styles.video} />}
-                    </View>
-
-                    <TouchableOpacity
-                        style={[styles.signIn, {
+                        style={[styles.signup, {
                             backgroundColor: '#009387',
                             borderColor: '#009387',
                             borderWidth: 1,
@@ -103,14 +120,31 @@ export default function Report(){
                     >
                         <Text style={[styles.textSign, {
                             color : '#fff' 
-                        }]}onPress={pickVideo}
-                        >Pick an Video from camera roll</Text>
+                        }]}onPress={pickImage}
+                        >Pick from Gallery</Text>
                     </TouchableOpacity>
-                      
+
+                    <TouchableOpacity
+                        style={[styles.signup, {
+                            backgroundColor: '#009387',
+                            borderColor: '#009387',
+                            borderWidth: 1,
+                            marginTop: 15
+                        }]}
+                    >
+                        <Text style={[styles.textSign, {
+                            color : '#fff' 
+                        }]}onPress={captImage}
+                        >Take a Picture</Text>
+                    </TouchableOpacity>
+                </View>   
+
+
                     <View style={styles.action}>
-                        {video && <Video source={{ uri:video}}  rate={1.0}
-                            shouldPlay style={ styles.video} />}
+                        <Image source={{uri:"result.uri"}} 
+                            style={ styles.video} />
                     </View>
+
 
                     <Text style={[styles.text_footer,{marginTop:35}]}>Description of the Crime</Text>
                     <View style={styles.action}>
@@ -191,7 +225,7 @@ const styles= StyleSheet.create({
     },
     video: {
         alignSelf: 'center',
-        width: 200,
+        width: '100%',
         height: 200,
     },
     signIn: {
@@ -204,5 +238,17 @@ const styles= StyleSheet.create({
     textSign: {
         fontSize: 18,
         fontWeight: 'bold'
+    },
+    signup: {
+        width: 155,
+        height: 55,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10
+    },
+    imgbut:{
+        flex:1,
+        flexDirection:'row',
+        justifyContent: 'space-between'
     }
 });
