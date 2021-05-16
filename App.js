@@ -15,12 +15,12 @@ firebase.initializeApp(firebaseConfig);
 const Drawer = createDrawerNavigator();
 const stack = (
   <NavigationContainer>
-    <RootStackScreen />
-    {/* <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
+    {/* <RootStackScreen /> */}
+    <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
       <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
       <Drawer.Screen name="SettingScreen" component={SettingScreen} />
       <Drawer.Screen name="SupportScreen" component={SupportScreen} />
-    </Drawer.Navigator> */}
+    </Drawer.Navigator>
   </NavigationContainer>
 );
 
