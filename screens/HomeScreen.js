@@ -73,6 +73,7 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor:"#e6ffe6",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
       paddingHorizontal:10,
       marginHorizontal:10,
       height:130,
-      width:250,
+      width:300,
       shadowColor: '#ccc',
       shadowOffset: { width: 0, height: 3 },
       shadowOpacity: 0.5,

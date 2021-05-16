@@ -2,7 +2,9 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import { FAB } from 'react-native-paper';
 
+
 const ExploreScreen = ({navigation})=>{
+    
     return(
         <View style={styles.container}>
             <Text>ExploreScreen</Text>
@@ -13,6 +15,7 @@ const ExploreScreen = ({navigation})=>{
                 onPress={() => navigation.navigate('ReportScreen')}
             />
         </View>
+        
     );
 };
 

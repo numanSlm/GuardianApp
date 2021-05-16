@@ -12,6 +12,7 @@ import MapScreen from './MapScreen';
 const HomeStack = createStackNavigator();
 const DetailsStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
+const xplr=createStackNavigator();
 
 const MainTabScreen = ()=>(
     <Tab.Navigator
@@ -33,7 +34,7 @@ const MainTabScreen = ()=>(
       name="Details"
       component={DetailsStackScreen}
       options={{
-        tabBarLabel: 'Details',
+        tabBarLabel: 'Tips',
         tabBarColor: '#E24C00',
         tabBarIcon: ({ color }) => (
           <Feather name="bell" color={color} size={26} />
@@ -79,7 +80,7 @@ const HomeStackScreen = ({navigation}) => (
     }}>
     <HomeStack.Screen name="Home" component={HomeScreen} options={{
       headerLeft:()=>(
-        <Feather name="menu" size={24} color="black" 
+        <Feather name="menu" size={24} color="black" style = {{paddingLeft : 20}}
         backgroundColor='#009387' onPress={() => navigation.openDrawer()} />
       )
     }} />
@@ -96,12 +97,31 @@ const DetailsStackScreen = ({navigation}) => (
         fontweight:'bold'
       }
     }}>
-    <DetailsStack.Screen name="Details" component={DetailsScreen}  options={{
+    <DetailsStack.Screen name="Stay Alert with these Techniques" component={DetailsScreen}  options={{
       headerLeft:()=>(
-        <Feather name="menu" size={24} color="black" 
+        <Feather name="menu" size={24} color="black" style = {{paddingLeft : 20}}
         backgroundColor='#E24C00' onPress={() => navigation.openDrawer()} />
       )
     }} />
   </DetailsStack.Navigator>
   );
   
+//todo
+  const xplrScreen = ({navigation}) => (
+    <xplrStack.Navigator screenOptions={{
+      headerStyle:{
+        backgroundColor: '#E24C00'
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle:{
+        fontweight:'bold'
+      }
+    }}>
+    <xplrStack.Screen name="Details" component={ExploreScreen}  options={{
+      headerLeft:()=>(
+        <Feather name="menu" size={24} color="black" style = {{paddingLeft : 20}}
+        backgroundColor='#E24C00' onPress={() => navigation.openDrawer()} />
+      )
+    }} />
+  </xplrStack.Navigator>
+  );

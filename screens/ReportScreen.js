@@ -7,9 +7,10 @@ const ReportScreen = (props)=>{
         <View style={styles.container}>
             <Card style={styles.cases}>
               <Card.Title title="Emergency Report"  />
-              <Card.Actions>
+              <Card.Actions >
+      
                 <Button onPress={()=> {props.navigation.navigate('Home')}}>Cancel</Button>
-                <Button>Ok</Button>
+                <Button onPress={()=> {props.navigation.navigate('Report')}}>Ok</Button>
               </Card.Actions>
             </Card>
             <Card style={styles.cases}>
@@ -27,6 +28,7 @@ export default ReportScreen;
 
 const styles= StyleSheet.create({
     container:{
+        backgroundColor:"#ff6666",
         flex:1,
         alignItems:'center',
         justifyContent:'center'
@@ -35,6 +37,8 @@ const styles= StyleSheet.create({
         flexDirection:"row",
         padding:8,
         marginTop:30,
+        borderRadius:20,
+        alignItems:"center",
         paddingHorizontal:10,
         marginHorizontal:10,
         height:130,
