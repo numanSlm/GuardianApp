@@ -64,7 +64,7 @@ export default function MapScreen({ navigation }) {
         style={styles.fab}
         small
         icon="plus"
-        onPress={() => navigation.navigate("Details")}
+        onPress={() => navigation.navigate("ReportScreen")}
       />
     </View>
   );
