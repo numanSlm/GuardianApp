@@ -12,7 +12,6 @@ import MapScreen from './MapScreen';
 const HomeStack = createStackNavigator();
 const DetailsStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
-const xplr=createStackNavigator();
 
 const MainTabScreen = ()=>(
     <Tab.Navigator
@@ -42,17 +41,6 @@ const MainTabScreen = ()=>(
       }}
     />
     <Tab.Screen
-      name="Explore"
-      component={ExploreScreen}
-      options={{
-        tabBarLabel: 'Explore',
-        tabBarColor: '#694fad',
-        tabBarIcon: ({ color }) => (
-          <Feather name="gitlab" color={color} size={24} />
-        ),
-      }}
-    />
-    <Tab.Screen
       name="Map"
       component={MapScreen}
       options={{
@@ -60,6 +48,17 @@ const MainTabScreen = ()=>(
         tabBarColor: '#d02860',
         tabBarIcon: ({ color }) => (
           <Feather name="map" color={color} size={24} />
+        ),
+      }}
+    />
+     <Tab.Screen
+      name="Explore"
+      component={ExploreScreen}
+      options={{
+        tabBarLabel: 'Explore',
+        tabBarColor: '#694fad',
+        tabBarIcon: ({ color }) => (
+          <Feather name="gitlab" color={color} size={24} />
         ),
       }}
     />
@@ -106,22 +105,3 @@ const DetailsStackScreen = ({navigation}) => (
   </DetailsStack.Navigator>
   );
   
-//todo
-  const xplrScreen = ({navigation}) => (
-    <xplrStack.Navigator screenOptions={{
-      headerStyle:{
-        backgroundColor: '#E24C00'
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle:{
-        fontweight:'bold'
-      }
-    }}>
-    <xplrStack.Screen name="Details" component={ExploreScreen}  options={{
-      headerLeft:()=>(
-        <Feather name="menu" size={24} color="black" style = {{paddingLeft : 20}}
-        backgroundColor='#E24C00' onPress={() => navigation.openDrawer()} />
-      )
-    }} />
-  </xplrStack.Navigator>
-  );
