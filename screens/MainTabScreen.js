@@ -41,17 +41,6 @@ const MainTabScreen = ()=>(
       }}
     />
     <Tab.Screen
-      name="Explore"
-      component={ExploreScreen}
-      options={{
-        tabBarLabel: 'Explore',
-        tabBarColor: '#694fad',
-        tabBarIcon: ({ color }) => (
-          <Feather name="gitlab" color={color} size={24} />
-        ),
-      }}
-    />
-    <Tab.Screen
       name="Map"
       component={MapScreen}
       options={{
@@ -59,6 +48,17 @@ const MainTabScreen = ()=>(
         tabBarColor: '#d02860',
         tabBarIcon: ({ color }) => (
           <Feather name="map" color={color} size={24} />
+        ),
+      }}
+    />
+     <Tab.Screen
+      name="Explore"
+      component={ExploreScreen}
+      options={{
+        tabBarLabel: 'Explore',
+        tabBarColor: '#694fad',
+        tabBarIcon: ({ color }) => (
+          <Feather name="gitlab" color={color} size={24} />
         ),
       }}
     />
