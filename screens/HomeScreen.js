@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { View, StyleSheet,ScrollView } from "react-native";
 import { FAB,Card,Title } from "react-native-paper";

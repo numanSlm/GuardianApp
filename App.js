@@ -8,6 +8,7 @@ import SettingScreen from "./screens/SettingScreen";
 import RootStackScreen from "./screens/RootStackScreen";
 import ReportScreen from "./screens/ReportScreen";
 import Report from "./screens/Report";
+import PoliceStation from './screens/PolicStation';
 import { DataProvider } from "./store/GlobalState";
 import firebase from "firebase";
 import { firebaseConfig } from "./firebase";
@@ -24,6 +25,7 @@ const stack = (
       <Drawer.Screen name="SupportScreen" component={SupportScreen} />
       <Drawer.Screen name="ReportScreen" component={ReportScreen} />
       <Drawer.Screen name="Report" component={Report} />
+      <Drawer.Screen name="PoliceStation" component={PoliceStation} />
     </Drawer.Navigator>
   </NavigationContainer>
 );

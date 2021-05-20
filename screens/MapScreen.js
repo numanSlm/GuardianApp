@@ -2,10 +2,15 @@ import React, { useState, useEffect, useContext } from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
 import MapView, { Marker, Circle } from "react-native-maps";
 import * as Location from "expo-location";
-import { FAB } from "react-native-paper";
+import {FAB} from "react-native-paper";
 import { DataContext } from "../store/GlobalState";
 
 export default function MapScreen({ navigation }) {
+
+  
+
+
+
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -61,11 +66,18 @@ export default function MapScreen({ navigation }) {
       ) : null}
 
       <FAB
-        style={styles.fab}
+        style={[styles.fab, {marginBottom:90,marginEnd:23}]}
         small
         icon="plus"
         onPress={() => navigation.navigate("ReportScreen")}
       />
+      <FAB
+        style={styles.fab}
+        medium
+        icon="police-badge"
+        onPress={() => navigation.navigate("PoliceStation")}
+      />
+       
     </View>
   );
 }
