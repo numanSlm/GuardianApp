@@ -10,7 +10,8 @@ import ReportScreen from "./ReportScreen";
 import Report from "./Report";
 import PoliceStation from "./PolicStation";
 import { DataContext } from "../store/GlobalState";
-import firebase from "firebase";
+import EmergencyContacts from "./EmergencyContacts";
+import Whatsapp from "./Whatsapp";
 
 const Drawer = createDrawerNavigator();
 
@@ -29,6 +30,11 @@ const MainScreen = () => {
           <Drawer.Screen name="ReportScreen" component={ReportScreen} />
           <Drawer.Screen name="Report" component={Report} />
           <Drawer.Screen name="PoliceStation" component={PoliceStation} />
+          <Drawer.Screen
+            name="EmergencyContacts"
+            component={EmergencyContacts}
+          />
+          <Drawer.Screen name="Whatsapp" component={Whatsapp} />
         </Drawer.Navigator>
       ) : (
         <RootStackScreen />

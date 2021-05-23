@@ -80,7 +80,7 @@ export default function MapScreen({ navigation }) {
             description="desc"
           />
 
-          {cordinates.length > 0
+          {/* {cordinates.length > 0
             ? cordinates.map((key, index) => {
                 return (
                   <Marker
@@ -96,7 +96,7 @@ export default function MapScreen({ navigation }) {
                   />
                 );
               })
-            : null}
+            : null} */}
           <Circle
             center={{
               latitude: location.coords.latitude,
