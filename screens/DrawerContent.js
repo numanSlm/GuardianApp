@@ -20,6 +20,7 @@ import { DataContext } from "../store/GlobalState";
 
 export function DrawerContent(props) {
   const { state, dispatch } = useContext(DataContext);
+  const { auth } = state;
 
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
   const toggleTheme = () => {
@@ -51,12 +52,12 @@ export function DrawerContent(props) {
                 size={50}
               />
               <View style={{ marginLeft: 15, flexDirection: "column" }}>
-                <Title style={styles.title}>John Doe</Title>
+              <Title style={styles.title}>{auth.firstName}</Title>
                 <Caption style={styles.caption}>@j_doe</Caption>
               </View>
             </View>
 
-            <View style={styles.row}>
+            {/* <View style={styles.row}>
               <View style={styles.section}>
                 <Paragraph style={[styles.paragraph, styles.caption]}>
                   80
@@ -69,7 +70,7 @@ export function DrawerContent(props) {
                 </Paragraph>
                 <Caption style={styles.caption}>Followers</Caption>
               </View>
-            </View>
+            </View> */}
           </View>
 
           <Drawer.Section style={styles.drawerSection}>

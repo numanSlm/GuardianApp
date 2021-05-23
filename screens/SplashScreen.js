@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View,Text,Button,Image,TouchableOpacity,Dimensions,StyleSheet} from 'react-native';
+import {View,Text,TouchableOpacity,Dimensions,StyleSheet} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import * as Animatable from 'react-native-animatable';
 
@@ -10,7 +10,7 @@ const SplashScreen = ({navigation}) =>{
         <Animatable.Image
         animation='bounceIn'
         durataion='1500'
-        source={require('../assets/of8.png')}
+        source={require('../assets/guard.jpg')}
         style={styles.logo}
         resizeMode='stretch'
         />
@@ -66,7 +66,8 @@ const styles = StyleSheet.create({
   logo: {
       width: height_logo,
       height: height_logo,
-      borderRadius: 100
+      borderRadius: 500,
+
   },
   title: {
       color: '#05375a',

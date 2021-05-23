@@ -83,7 +83,7 @@ const Acc = () => {
                       <Image
                         style={{ width: "100%", height: 200, marginTop: 10 }}
                         source={{
-                          uri: "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80",
+                          uri: "file:/data/user/0/host.exp.exponent/cache/ExperienceData/UNVERIFIED-192.168.43.82-Crime/ImagePicker/735feb8c-4672-4d3c-8a9e-b28ac9b3fa65.jpg",
                         }}
                       />
                     </View>

@@ -9,7 +9,7 @@ import { url } from "../url";
 import assault from "../assets/assault.png";
 import burglary from "../assets/burglary.png";
 import defaultCrime from "../assets/default.png";
-import disturbing_peace from "../assets/disturbing_peace.png";
+import disturbingPeace from "../assets/disturbing_peace.png";
 import drugs from "../assets/drugs.png";
 import DUI from "../assets/DUI.png";
 import fraud from "../assets/fraud.png";
@@ -72,16 +72,90 @@ export default function MapScreen({ navigation }) {
         >
           <Marker
             coordinate={{
-              latitude: userData.location.coords.latitude,
-              longitude: userData.location.coords.longitude,
+              latitude: 21.195508,
+              longitude:  72.796415,
             }}
-            // image={require("../assets/my-location.gif")}
+            image={require("../assets/DUI.png")}
             title="test"
             description="desc"
           />
+          <Marker
+            coordinate={{
+              latitude: 21.199550,
+              longitude:  72.786491,
+            }}
+            image={require("../assets/assault.png")}
+            title="test"
+            description="desc"
+          />
+          <Marker
+            coordinate={{
+              latitude: 21.204939,
+              longitude:  72.771318,
+            }}
+            image={require("../assets/burglary.png")}
+            title="test"
+            description="desc"
+          />
+          <Marker
+            coordinate={{
+              latitude: 21.209744,
+              longitude:  72.798871,
+            }}
+            image={require("../assets/drugs.png")}
+            title="test"
+            description="desc"
+          />
+          <Marker
+            coordinate={{
+              latitude: 21.178733,
+              longitude:  72.806483,
+            }}
+            image={require("../assets/fraud.png")}
+            title="test"
+            description="desc"
+          />
+          <Marker
+            coordinate={{
+              latitude: 21.167957, 
+              longitude:  72.788322,
+            }}
+            image={require("../assets/MVT.png")}
+            title="test"
+            description="desc"
+          />
+          <Marker
+            coordinate={{
+              latitude: 21.193687, 
+              longitude:  72.804832,
+            }}
+            image={require("../assets/murder.png")}
+            title="test"
+            description="desc"
+          />
+          <Marker
+            coordinate={{
+              latitude: 21.184231, 
+              longitude:  72.789502,
+            }}
+            image={require("../assets/DUI.png")}
+            title="test"
+            description="desc"
+          />
+          <Marker
+          coordinate={{
+            latitude: userData.location.coords.latitude,
+            longitude: userData.location.coords.longitude,
+          }}
+          // image={require("../assets/murder.png")}
+          title="test"
+          description="desc"
+        />
+
 
           {/* {cordinates.length > 0
             ? cordinates.map((key, index) => {
+              {console.log(key.type,index)}
                 return (
                   <Marker
                     coordinate={{
@@ -94,6 +168,7 @@ export default function MapScreen({ navigation }) {
                     description="desc"
                     style={styles.marker}
                   />
+                  
                 );
               })
             : null} */}

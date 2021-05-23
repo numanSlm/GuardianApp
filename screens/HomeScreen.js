@@ -1,15 +1,29 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, ScrollView, StatusBar } from "react-native";
+import { View, StyleSheet, Linking, ScrollView, StatusBar } from "react-native";
 import { FAB, Card, Title } from "react-native-paper";
-import * as Notifications from "expo-notifications";
+// import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
 
 export default function HomeScreen({ navigation }) {
-  useEffect(() => {
-    registerforPushNotification()
-      .then((token) => console.log(token))
-      .catch((err) => console.log(err));
-  }, []);
+
+  const initiateWhatsApp = () => {
+    let url =
+      'whatsapp://send?text= please help me!! I am in Danger'
+      '&phone=91' ;
+    Linking.openURL(url)
+      .then((data) => {
+        console.log('WhatsApp Opened');
+      })
+      .catch(() => {
+        alert('Make sure Whatsapp installed on your device');
+      });
+  };
+
+  // useEffect(() => {
+  //   registerforPushNotification()
+  //     .then((token) => console.log(token))
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   async function registerforPushNotification() {
     const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
@@ -82,7 +96,7 @@ export default function HomeScreen({ navigation }) {
           theme={{ colors: { accent: "#C70039" } }}
           label="  Emergency Message  "
           icon="whatsapp"
-          onPress={() => navigation.navigate("Whatsapp")}
+          onPress={initiateWhatsApp}
         />
       </View>
       <FAB

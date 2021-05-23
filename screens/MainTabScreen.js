@@ -43,7 +43,7 @@ const MainTabScreen = () => (
         tabBarLabel: "Map",
         tabBarColor: "#d02860",
         tabBarIcon: ({ color }) => (
-          <Feather name="map" color={color} size={24} />
+          <Feather name="map-pin" color={color} size={24} />
         ),
       }}
     />

@@ -5,14 +5,14 @@ import { Card,Title,Button } from 'react-native-paper';
 const ReportScreen = (props)=>{
     return(
         <View style={styles.container}>
-            <Card style={styles.cases}>
+            {/* <Card style={styles.cases}>
               <Card.Title title="Emergency Report"  />
               <Card.Actions >
       
                 <Button onPress={()=> {props.navigation.navigate('Home')}}>Cancel</Button>
                 <Button onPress={()=> {props.navigation.navigate('Report')}}>Ok</Button>
               </Card.Actions>
-            </Card>
+            </Card> */}
             <Card style={styles.cases}>
               <Card.Title title="Normal Report"  />
               <Card.Actions>

@@ -1,11 +1,12 @@
 import React from 'react';
-import {View,Text,StyleSheet,ScrollView} from 'react-native';
+import {View,Text,StyleSheet,ScrollView,StatusBar} from 'react-native';
 import { FAB,Card } from 'react-native-paper';
 import {Video} from 'expo-av';
 
 const DetailsScreen = ({navigation}) =>{
     return(
       <View style={styles.container}>
+          <StatusBar backgroundColor="#009387" barStyle="light-content" />
         <ScrollView
             showsVerticalScrollIndicator={false}
             style={styles.scrollView}
@@ -136,7 +137,6 @@ const styles= StyleSheet.create({
     container:{
         backgroundColor:"#ffcccc",
         flex:1,
-        alignItems:'center',
         justifyContent:'center'
     },
     fab: {
@@ -154,8 +154,7 @@ const styles= StyleSheet.create({
     },
     Titlecases:{
       marginTop:30,
-      alignSelf:"center",
-      alignItems:"center",
+      marginBottom:15,
       shadowColor: '#ccc',
       shadowOffset: { width: 0, height: 3 },
       shadowOpacity: 0.5,
@@ -167,14 +166,15 @@ const styles= StyleSheet.create({
     text:{
       color:"#686868",
       marginTop:20,
-      marginHorizontal:10,
-      fontSize:17
+      fontSize:17,
+      marginHorizontal:8
     },
     cases:{
       flexDirection:"row",
       alignSelf:"center",
       padding:8,
-      marginTop:30,
+      marginTop:15,
+      marginBottom:15,
       paddingHorizontal:10,
       marginHorizontal:10,
       height:300,
@@ -186,8 +186,8 @@ const styles= StyleSheet.create({
       elevation: 10,
     },
     video: {
-      
-      justifyContent:'center',
+      marginTop:13,
+      marginHorizontal:-17,
       width: 300,
       height: 200,
     },
