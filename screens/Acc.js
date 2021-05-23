@@ -74,9 +74,9 @@ const Acc = () => {
                           .unix(_data.created)
                           .format("MM/DD/YYYY, h:mm:ss a")}
                       </Text>
-                      <Text>Crime Type: {_data.type.toUpperCase()}</Text>
+                      <Text>Crime Type: {_data.crimeType.toUpperCase()}</Text>
                       <Text>
-                        Crime Status: {_data.type ? "Approved" : "Rejected"}
+                        Crime Status: {_data.verified ? "Approved" : "Rejected"}
                       </Text>
                       <Text>Description: {_data.policeDescription}</Text>
 

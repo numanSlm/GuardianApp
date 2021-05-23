@@ -1,1 +1,1 @@
-exports.url = "https://928fe2432a13.ngrok.io/crime-2199/us-central1/api";
+exports.url = "https://3582ea4c340d.ngrok.io/crime-2199/us-central1/api";

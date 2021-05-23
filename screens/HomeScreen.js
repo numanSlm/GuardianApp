@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, StatusBar } from "react-native";
 import { FAB, Card, Title } from "react-native-paper";
 import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
@@ -31,8 +31,10 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor="#009387" barStyle="light-content" />
       <ScrollView
-        showsVerticalScrollIndicator={false}
+        horizontal
+        showsHorizontalScrollIndicator={false}
         style={styles.scrollView}
       >
         <Card style={styles.cases}>
@@ -60,8 +62,34 @@ export default function HomeScreen({ navigation }) {
           </Card.Content>
         </Card>
       </ScrollView>
+      <View style={{ flex: 5 }}>
+        <FAB
+          style={[styles.fab]}
+          label="Helpline Numbers"
+          theme={{ colors: { accent: "#C70039" } }}
+          icon="phone-plus"
+          onPress={() => navigation.navigate("EmergencyContacts")}
+        />
+        <FAB
+          style={[styles.fab]}
+          label="Nearby Police Station"
+          theme={{ colors: { accent: "#C70039" } }}
+          icon="police-badge"
+          onPress={() => navigation.navigate("PoliceStation")}
+        />
+        <FAB
+          style={[styles.fab]}
+          theme={{ colors: { accent: "#C70039" } }}
+          label="  Emergency Message  "
+          icon="whatsapp"
+          onPress={() => navigation.navigate("Whatsapp")}
+        />
+      </View>
       <FAB
-        style={styles.fab}
+        style={[
+          styles.fab,
+          { position: "absolute", margin: 16, right: 0, bottom: 0 },
+        ]}
         small
         icon="plus"
         onPress={() => navigation.navigate("ReportScreen")}
@@ -78,10 +106,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   fab: {
-    position: "absolute",
-    margin: 16,
-    right: 0,
-    bottom: 0,
+    marginTop: 10,
+    marginBottom: 10,
   },
   cases: {
     flexDirection: "row",
@@ -90,7 +116,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginHorizontal: 10,
     height: 130,
-    width: 300,
+    width: 250,
     shadowColor: "#ccc",
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.5,
