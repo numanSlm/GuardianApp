@@ -7,7 +7,7 @@ export const DataProvider = ({ children }) => {
   const initialState = {
     notify: {},
     auth: {},
-    userData: {}
+    userData: {},
   };
 
   const [state, dispatch] = useReducer(reducers, initialState);

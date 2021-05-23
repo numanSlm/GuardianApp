@@ -14,8 +14,13 @@ import { FontAwesome } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 import firebase from "firebase";
+import { DataContext } from "../store/GlobalState";
+import axios from "axios";
+import { url } from "../url";
 
 const SignInScreen = ({ navigation }) => {
+  const { state, dispatch } = React.useContext(DataContext);
+
   const [data, setData] = React.useState({
     email: "",
     password: "",
@@ -25,6 +30,18 @@ const SignInScreen = ({ navigation }) => {
     secureTextEntry: true,
     confirm_secureTextEntry: true,
   });
+
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
+  const [mobilenumber, setMobileNumber] = React.useState("");
+  const [emergencyNumber, setEmergencyNumber] = React.useState("");
+  const [relativeName, setRelativeName] = React.useState("");
+  const [relativeNumber, setRelativeNumber] = React.useState("");
+  const [addr1, setAddr1] = React.useState("");
+  const [addr2, setAddr2] = React.useState("");
+  const [city, setCity] = React.useState("");
+  const [homestate, setHomeState] = React.useState("");
+  const [pincode, setPincode] = React.useState("");
 
   const adharInputChange = (val) => {
     if (val.length == 12) {
@@ -87,14 +104,45 @@ const SignInScreen = ({ navigation }) => {
   };
 
   const handleSignupSubmit = async () => {
-    // try {
-    //   const response = await firebase
-    //     .auth()
-    //     .createUserWithEmailAndPassword(data.email, data.password);
-    //   console.log(response);
-    // } catch (err) {
-    //   console.error(err);
-    // }
+    const payload = {
+      data,
+      firstName,
+      lastName,
+      mobile: mobilenumber,
+      emergencyNumber,
+      relativeName,
+      relativeNumber,
+      city,
+      pincode,
+      state: homestate,
+      addressLine1: addr1,
+      addressLine2: addr2,
+      email: data.email,
+      adhaarNumber: data.adhar,
+    };
+
+    try {
+      const response = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(data.email, data.password);
+
+      const result = await axios.post(`${url}/user/add-user`, {
+        ...payload,
+        email: data.email,
+        uid: response.user.uid,
+      });
+
+      console.log(result);
+
+      if (result.status === 200) {
+        dispatch({
+          type: "ADD_AUTH_DATA",
+          payload: { ...payload, uid: response.user.uid },
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -105,32 +153,26 @@ const SignInScreen = ({ navigation }) => {
       </View>
 
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-           <ScrollView
-                showsVerticalScrollIndicator={false}
-            >
-            <Text style={styles.text_footer}>First Name</Text>
-            <View style={styles.action}>
-            <MaterialIcons 
-                name="person" 
-                size={20} 
-                color="#05375a" />
-            <TextInput 
-                placeholder='Your First Name' 
-                style={styles.textInput}
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Text style={styles.text_footer}>First Name</Text>
+          <View style={styles.action}>
+            <MaterialIcons name="person" size={20} color="#05375a" />
+            <TextInput
+              placeholder="Your First Name"
+              style={styles.textInput}
+              onChangeText={(val) => setFirstName(val)}
             />
-            </View>
-            
-            <Text style={[styles.text_footer,{marginTop:35}]}>Last Name</Text>
-            <View style={styles.action}>
-            <MaterialIcons 
-                name="person" 
-                size={20} 
-                color="#05375a" />
-            <TextInput 
-                placeholder='Your Last Name' 
-                style={styles.textInput}
+          </View>
+
+          <Text style={[styles.text_footer, { marginTop: 35 }]}>Last Name</Text>
+          <View style={styles.action}>
+            <MaterialIcons name="person" size={20} color="#05375a" />
+            <TextInput
+              placeholder="Your Last Name"
+              style={styles.textInput}
+              onChangeText={(val) => setLastName(val)}
             />
-            </View>
+          </View>
 
           <Text style={[styles.text_footer, { marginTop: 35 }]}>
             Aadhaar Card No.
@@ -150,13 +192,14 @@ const SignInScreen = ({ navigation }) => {
           </View>
 
           <Text style={[styles.text_footer, { marginTop: 35 }]}>
-            Registered Mobile No.
+            Mobile No.
           </Text>
           <View style={styles.action}>
             <MaterialIcons name="mobile-friendly" size={20} color="#05375a" />
             <TextInput
-              placeholder="Your Registered Mobile No."
+              placeholder="Your  Mobile No."
               style={styles.textInput}
+              onChangeText={(val) => setMobileNumber(val)}
             />
           </View>
 
@@ -168,92 +211,87 @@ const SignInScreen = ({ navigation }) => {
             <TextInput
               placeholder="Emergency Contact No."
               style={styles.textInput}
+              onChangeText={(val) => setEmergencyNumber(val)}
             />
           </View>
 
-           <Text style={[styles.text_footer,{marginTop:35}]}>Relative Name</Text>
-            <View style={styles.action}>
-            <MaterialIcons 
-                name="person" 
-                size={20} 
-                color="#05375a" />
-            <TextInput 
-                placeholder='Your Relative Name' 
-                style={styles.textInput}
+          <Text style={[styles.text_footer, { marginTop: 35 }]}>
+            Relative Name
+          </Text>
+          <View style={styles.action}>
+            <MaterialIcons name="person" size={20} color="#05375a" />
+            <TextInput
+              placeholder="Your Relative Name"
+              style={styles.textInput}
+              onChangeText={(val) => setRelativeName(val)}
             />
-            </View>
+          </View>
 
-            <Text style={[styles.text_footer, {marginTop:35}]}>Relative Contact No.</Text>
-            <View style={styles.action}>
-            <MaterialIcons 
-                name="person-add" 
-                size={20} 
-                color="#05375a" />
-            <TextInput 
-                placeholder='Relative Contact No.' 
-                style={styles.textInput}
+          <Text style={[styles.text_footer, { marginTop: 35 }]}>
+            Relative Contact No.
+          </Text>
+          <View style={styles.action}>
+            <MaterialIcons name="person-add" size={20} color="#05375a" />
+            <TextInput
+              placeholder="Relative Contact No."
+              style={styles.textInput}
+              onChangeText={(val) => setRelativeNumber(val)}
             />
-            </View>
+          </View>
 
-            <Text style={[styles.text_footer,{marginTop:35}]}>Address Line 1</Text>
-            <View style={styles.action}>
-            <FontAwesome 
-                name="address-book" 
-                size={20} 
-                color="#05375a" />
-            <TextInput 
-                placeholder='Your Address' 
-                style={styles.textInput}
+          <Text style={[styles.text_footer, { marginTop: 35 }]}>
+            Address Line 1
+          </Text>
+          <View style={styles.action}>
+            <FontAwesome name="address-book" size={20} color="#05375a" />
+            <TextInput
+              placeholder="Your Address"
+              style={styles.textInput}
+              onChangeText={(val) => setAddr1(val)}
             />
-            </View>
+          </View>
 
-            <Text style={[styles.text_footer,{marginTop:35}]}>Address Line 2</Text>
-            <View style={styles.action}>
-            <FontAwesome 
-                name="address-book"  
-                size={20} 
-                color="#05375a" />
-            <TextInput 
-                placeholder='Your Address' 
-                style={styles.textInput}
+          <Text style={[styles.text_footer, { marginTop: 35 }]}>
+            Address Line 2
+          </Text>
+          <View style={styles.action}>
+            <FontAwesome name="address-book" size={20} color="#05375a" />
+            <TextInput
+              placeholder="Your Address"
+              style={styles.textInput}
+              onChangeText={(val) => setAddr2(val)}
             />
-            </View>
+          </View>
 
-            <Text style={[styles.text_footer,{marginTop:35}]}>City</Text>
-            <View style={styles.action}>
-            <MaterialIcons 
-                name="location-city" 
-                size={20} 
-                color="#05375a" />
-            <TextInput 
-                placeholder='Your city' 
-                style={styles.textInput}
+          <Text style={[styles.text_footer, { marginTop: 35 }]}>City</Text>
+          <View style={styles.action}>
+            <MaterialIcons name="location-city" size={20} color="#05375a" />
+            <TextInput
+              placeholder="Your city"
+              style={styles.textInput}
+              onChangeText={(val) => setCity(val)}
             />
-            </View>
+          </View>
 
-            <Text style={[styles.text_footer,{marginTop:35}]}>State</Text>
-            <View style={styles.action}>
-            <MaterialIcons 
-                name="location-city" 
-                size={20} 
-                color="#05375a" />
-            <TextInput 
-                placeholder='Your State' 
-                style={styles.textInput}
+          <Text style={[styles.text_footer, { marginTop: 35 }]}>State</Text>
+          <View style={styles.action}>
+            <MaterialIcons name="location-city" size={20} color="#05375a" />
+            <TextInput
+              placeholder="Your State"
+              style={styles.textInput}
+              onChangeText={(val) => setHomeState(val)}
             />
-            </View>
+          </View>
 
-            <Text style={[styles.text_footer,{marginTop:35}]}>Pincode</Text>
-            <View style={styles.action}>
-            <Feather 
-                name="map-pin" 
-                size={20} 
-                color="#05375a" />
-            <TextInput 
-                placeholder='Your pincode' 
-                style={styles.textInput}
+          <Text style={[styles.text_footer, { marginTop: 35 }]}>Pincode</Text>
+          <View style={styles.action}>
+            <Feather name="map-pin" size={20} color="#05375a" />
+            <TextInput
+              placeholder="Your pincode"
+              style={styles.textInput}
+              onChangeText={(val) => setPincode(val)}
             />
-            </View>   
+          </View>
 
           <Text style={[styles.text_footer, { marginTop: 35 }]}>E-mail id</Text>
           <View style={styles.action}>
