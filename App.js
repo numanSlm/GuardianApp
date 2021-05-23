@@ -1,27 +1,20 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import MainTabScreen from "./screens/MainTabScreen";
-import { DrawerContent } from "./screens/DrawerContent";
-import SupportScreen from "./screens/SupportScreen";
-import SettingScreen from "./screens/SettingScreen";
-import RootStackScreen from "./screens/RootStackScreen";
+import MainScreen from "./screens/MainScreen";
 import { DataProvider } from "./store/GlobalState";
+import firebase from "firebase";
+import { firebaseConfig } from "./firebase";
 
-const Drawer = createDrawerNavigator();
-const stack = (
-  <NavigationContainer>
-    {/* <RootStackScreen /> */}
-    <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
-      <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
-      <Drawer.Screen name="SettingScreen" component={SettingScreen} />
-      <Drawer.Screen name="SupportScreen" component={SupportScreen} />
-    </Drawer.Navigator>
-  </NavigationContainer>
-);
-
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app(); // if already initialized, use that one
+}
 const App = () => {
-  return <DataProvider>{stack}</DataProvider>;
+  return (
+    <DataProvider>
+      <MainScreen />
+    </DataProvider>
+  );
 };
 
 export default App;
