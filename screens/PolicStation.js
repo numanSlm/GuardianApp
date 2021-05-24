@@ -7,7 +7,6 @@ export default function PoliceStation() {
 
     const { state, dispatch } = useContext(DataContext);
     const { userData } = state;
-    console.log(userData.location)
 
     return (
       <WebView

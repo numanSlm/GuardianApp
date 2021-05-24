@@ -1,16 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { View, StyleSheet, Linking, ScrollView, StatusBar } from "react-native";
 import { FAB, Card, Title } from "react-native-paper";
 // import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
+import axios from "axios";
+import {url} from "../url";
+import { DataContext } from "../store/GlobalState";
 
 export default function HomeScreen({ navigation }) {
+  const [crimeStats, setCrimeStats] = useState({});
+  const { state, dispatch } = useContext(DataContext);
+  const { userData } = state;
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = await axios.get(
+        `${url}/crime/crime-stats`
+      );
+      setCrimeStats(response.data);
+    };
+
+    getData();
+  }, []);
 
   const initiateWhatsApp = () => {
     let url =
-      'whatsapp://send?text= please help me!! I am in Danger'
+      'whatsapp://send?text= I need help! Its urgent. Please contact me immediately. My Current Location is,'  + userData.location.coords.latitude + "," + userData.location.coords.longitude + "" 
       '&phone=91' ;
-    Linking.openURL(url)
+      Linking.openURL(url)
       .then((data) => {
         console.log('WhatsApp Opened');
       })
@@ -54,25 +71,25 @@ export default function HomeScreen({ navigation }) {
         <Card style={styles.cases}>
           <Card.Title title="Cases Reported" subtitle="Till Date" />
           <Card.Content>
-            <Title>890</Title>
+            <Title>{crimeStats.casesReported || ""}</Title>
           </Card.Content>
         </Card>
         <Card style={styles.cases}>
-          <Card.Title title="Cases Investigated" subtitle="Till Date" />
+          <Card.Title title="Cases Approved" subtitle="Till Date" />
           <Card.Content>
-            <Title>788</Title>
+            <Title>{crimeStats.casesApproved || ""}</Title>
+          </Card.Content>
+        </Card>
+        <Card style={styles.cases}>
+          <Card.Title title="Cases Rejected" subtitle="Till Date" />
+          <Card.Content>
+            <Title>{crimeStats.casesRejected || ""}</Title>
           </Card.Content>
         </Card>
         <Card style={styles.cases}>
           <Card.Title title="Cases Pending" subtitle="Till Date" />
           <Card.Content>
-            <Title>98</Title>
-          </Card.Content>
-        </Card>
-        <Card style={styles.cases}>
-          <Card.Title title="Cases Recorded" subtitle="Till Date" />
-          <Card.Content>
-            <Title>890</Title>
+            <Title>{crimeStats.casesPending || ""}</Title>
           </Card.Content>
         </Card>
       </ScrollView>
